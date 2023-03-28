@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="fizzbuzz">
+            <button id="fizzbuzz" onclick="fzbz()">FizzBuzz</button>
+            <button id="fizz" onclick="fzbz()">Fizz</button>
+            <button id="buzz" onclick="fzbz()">Buzz</button>
+        </div>
+        <hr><br>
+        <div class="labels">
+            <label>String array:</label>
+            <label for="mList">Mixed array:</label>
+        </div>
+        <div class="Arrays">
+            <ul id="wList"></ul>
+            <ul id="mList"></ul>
+        </div><br>
+        <hr>
+        <div class="arrayBtns">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="search for a word in the array">
+                <button onclick="searchWord()">search</button>
+            </div>
+            <div class="btns">
+                <button onclick="btn1()">1</button>
+                <button onclick="btn2()">2</button>
+                <button onclick="btn3()">3</button>
+                <button onclick="btn4()">4</button>
+                <button onclick="btn5()">5</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const searchBar = document.getElementById("search-input");
+        const wordsList = document.getElementById("wList");
+        const wordsArray = ["yes", "no", "up", "down", "left", "no", "right", "sun", "up", "table", "water", "knife"]
+        const mixedList = document.getElementById("mList");
+        const mixedArray = ["20", "no", "up", "down", "13", "no", "right", "218", "up", "11", "water", "2"]
+        function fzbz() {
+            for (let i = 0; i <= 100; i++) {
+                (event.target.innerText == "FizzBuzz" && i % 3 == 0 && i % 5 == 0)
+                    && console.log(i);
+                (event.target.innerText == "Fizz" && i % 3 == 0 && i % 5 != 0)
+                    && console.log(i);
+                (event.target.innerText == "Buzz" && i % 3 != 0 && i % 5 == 0)
+                    && console.log(i);
+            }
+        }
+        wordsArray.forEach(element => {
+            const li = document.createElement('li');
+            li.textContent = element;
+            wordsList.appendChild(li);
+
+        })
+        mixedArray.forEach(element => {
+            const li = document.createElement('li');
+            li.textContent = element;
+            mixedList.appendChild(li);
+        })
+        function btn1() {
+            console.log("words with more than 3 letter:");
+            for (let i = 0; i < wordsArray.length; i++) {
+                wordsArray[i].length > 3 && console.log(wordsArray[i]);
+            }
+        }
+        function btn2() {
+            let sum = 0;
+            for (let i = 0; i < wordsArray.length; i++) {
+                sum += wordsArray[i].length;
+            }
+            console.log(`there are ${sum} letters in the list`);
+        }
+        function btn3() {
+            let sum = 0;
+            for (let i = 0; i < mixedArray.length; i++)
+                !isNaN(mixedArray[i]) && (sum += +mixedArray[i]);
+            console.log(`the sum is ${sum}`);
+        }
+        function btn4() {
+            let avg = 0;
+            let nums = 0;
+            let numbers = [];
+            for (let i = 0; i < mixedArray.length; i++) {
+                if (!isNaN(mixedArray[i])) {
+                    numbers.push(parseInt(mixedArray[i]));
+                    avg += +mixedArray[i];
+                    nums++;
+                }
+            }
+            let min = Math.min(...numbers)
+            let max = Math.max(...numbers)
+            avg = avg / nums;
+            console.log(`Average:${avg} lowest num:${min} highest num:${max}`);
+        }
+        function btn5() {
+            let arr = [];
+            let lessThan7 = [];
+            for (let i = 0; i < 10; i++) {
+                let rnd = Math.floor(Math.random() * 21);
+                arr.push(rnd);
+                rnd < 7 && lessThan7.push(rnd);
+            }
+            console.log(`list of 10 random numbers:${arr}`);
+            console.log(`all the numbers lower than 7: ${lessThan7}`);
+        }
+        function searchWord() {
+            let a = 0;
+            for (let i = 0; i < wordsArray.length; i++) {
+                wordsArray[i] == searchBar.value && a++;
+            }
+            alert(`the word "${searchBar.value}" appears ${a} times in the list`)
+            searchBar.value = "";
+        }
+    </script>
+</body>
+
+</html>
